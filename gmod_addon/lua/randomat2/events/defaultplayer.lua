@@ -56,12 +56,12 @@ EVENT.id = "defaultplayer"
 ----------------------------------------------------------------------
 for i = 1, 1, 4 do
 	sound.Add( {
-		name = "StoneFootstep-"..i,
+		name = "stonefootstep-"..i,
 		channel = CHAN_BODY,
 		volume = 1.0,
 		level = 80,
 		pitch = {95, 110},
-		sound = "StoneFootstep-"..i
+		sound = "stonefootstep-"..i
 	} )
 end
 
