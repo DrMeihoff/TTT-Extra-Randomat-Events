@@ -34,7 +34,7 @@ This event does absolutely nothing.
 
 ### **Pinball Players**
 
-This event wire fire players away from eachother if they touch, if you jump at another player, can be used to launch yourself somewhere.
+This event will fire players away from each other if they touch, if you jump at another player, can be used to launch yourself somewhere.
 
 ## Credits
 - Learned how to create randomats from [TTT Randomat 2.0 MORE EVENTS!](https://steamcommunity.com/sharedfiles/filedetails/?id=2068742309)
