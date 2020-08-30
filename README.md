@@ -18,7 +18,7 @@ This event will turn each role into a 'team'. When someone kills another person,
 
 ### **Petrify!**
 
-This event will turn everyone's player model into the default source player model, the one that looks like stone, and make everyones footsteps sound like stone.
+This event will turn everyone's player model into the default source player model, the one that looks like stone, and make everyone's footsteps sound like stone.
 
 ### **'Realistic' Recoil**
 
