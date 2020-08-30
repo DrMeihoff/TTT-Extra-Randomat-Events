@@ -2,7 +2,7 @@
 
 [![gmod-addon](https://img.shields.io/badge/gmod-addon-_.svg?colorB=1194EF)](https://wiki.garrysmod.com) [![license](https://img.shields.io/github/license/Owningle/TTT-Discord-Immersion.svg)](LICENSE)
 
-[Workshop Link]()
+[Workshop Link](https://steamcommunity.com/sharedfiles/filedetails/?id=2214440295)
 
 This addon will add more randomat events to your TTT Game. It requires [Randomat 2.0](https://steamcommunity.com/sharedfiles/filedetails/?id=1406495040)
 
