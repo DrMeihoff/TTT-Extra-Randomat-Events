@@ -36,6 +36,10 @@ This event does absolutely nothing.
 
 This event will fire players away from each other if they touch, if you jump at another player, can be used to launch yourself somewhere.
 
+### **I'm the accuracy now**
+
+This event will remove health from you if you miss a shot, and give you health if you hit.
+
 ## Credits
 - Learned how to create randomats from [TTT Randomat 2.0 MORE EVENTS!](https://steamcommunity.com/sharedfiles/filedetails/?id=2068742309)
 - Thanks to the people supporting and developing the TTT Gamemode.
