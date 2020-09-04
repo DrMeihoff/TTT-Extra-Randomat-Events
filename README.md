@@ -26,7 +26,7 @@ This will add a back force to weapons, based on their damage, and amount of bull
 
 ### **Hilarity Ensues**
 
-This event will make jesters expload when killed by a traitor, and will then respawn both the traitor, and the jester (as a traitor).
+This event will make jesters explode when killed by a traitor, and will then respawn both the traitor, and the jester (as a traitor).
 
 ### **... That's Lame**
 
