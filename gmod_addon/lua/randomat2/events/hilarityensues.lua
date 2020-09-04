@@ -66,18 +66,26 @@ EVENT.id = "hilarityensues"
 ----------------------------------------------------------------------
 
 
-
 function EVENT:Begin()
+	if TTT2 then
+		curConVar = GetConVar("ttt2_jes_winstate"):GetInt()
+		if GetConVar("ttt2_jes_winstate"):GetInt() ~= 5 then
+			GetConVar("ttt2_jes_winstate"):SetInt(5)
+		else
+			print("Check Fail ====================")
+		end
+	end
+
     hook.Add("DoPlayerDeath","RandomatHilarityEnsues", function(ply, attacker, dmg)
         if (attacker.IsPlayer() and attacker ~= ply) then
-            if ply:GetRole() == ROLE_JESTER and attacker:GetRole() == ROLE_TRAITOR then
+			if ply:GetRole() == ROLE_JESTER and attacker:GetRole() == ROLE_TRAITOR then
                 local explosion = ents.Create( "env_explosion" )
                 explosion:SetPos( ply:GetPos() )
 	            explosion:Spawn() -- Spawn the explosion
 	            explosion:SetKeyValue( "iMagnitude", "50" )
                 explosion:Fire( "Explode", 0, 0 )
                 
-                if GetConVar("randomat_hilarityensues_respawn"):GetBool() then
+				if GetConVar("randomat_hilarityensues_respawn"):GetBool() then
                     ply:ConCommand("ttt_spectator_mode 0")
                     timer.Create("respawndelay", 0.1, 0, function()
                         local corpse = findcorpse(attacker) -- run the normal respawn code now
@@ -90,8 +98,8 @@ function EVENT:Begin()
                         end
                         SendFullStateUpdate()
                         if attacker:Alive() then timer.Destroy("respawndelay") return end
-                    end)
-                end
+					end)
+				end
             end
         end
     end)
@@ -99,6 +107,9 @@ end
 
 
 function EVENT:End()
+	if TTT2 then
+		GetConVar("ttt2_jes_winstate"):SetInt(tonumber(curConVar))
+	end
 	hook.Remove("DoPlayerDeath", "RandomatHilarityEnsues")
 end
 
