@@ -54,16 +54,7 @@ EVENT.id = "defaultplayer"
 	end
 
 ----------------------------------------------------------------------
-for i = 1, 1, 4 do
-	sound.Add( {
-		name = "stonefootstep-"..i,
-		channel = CHAN_BODY,
-		volume = 1.0,
-		level = 80,
-		pitch = {95, 110},
-		sound = "stonefootstep-"..i
-	} )
-end
+
 
 
 local function petrify(ply)
@@ -81,26 +72,48 @@ end
 
 function EVENT:Begin()
 	hook.Add("PlayerSpawn", "randomatDefaultPlayer", function(ply)
-		timer.Simple(0.5, petrify(ply))
+		if ply then
+			timer.Simple(0.5, petrify(ply))
+		end
 	end)
 	
-	hook.Add( "PlayerFootstep", "randomatDefaultPlayerFootstep", function( ply, pos, foot, sound, volume, rf )
-		footstepNum = math.random(1, 3)
-		print("Footstep! num: "..footstepNum)
-		ply:EmitSound( "StoneFootstep-"..footstepNum..".wav" )
-		return true
-	end )
+	-- hook.Add( "PlayerFootstep", "randomatDefaultPlayerFootstep", function( ply, pos, foot, sound, volume, rf )
+	-- 	footstepNum = math.random(1, 3)
+	-- 	print("Footstep! num: "..footstepNum)
+	-- 	ply:EmitSound( "physics\\concrete\\concrete_scrape_smooth_loop1.wav" )
+	-- 	return true
+	-- end )
+
 
     for i, ply in pairs(player.GetAll()) do
-        petrify(ply)
+		petrify(ply)
+		ply.soundPlaying = false
     end
 
+	hook.Add( "Move", "randomatDefaultPlayerMove", function( ply, mv )
+		if ply and ply:Alive() then
+			if mv:GetVelocity():Length() > 10 and not ply.soundPlaying and ply:IsOnGround() then
+				ply:EmitSound( "physics\\concrete\\concrete_scrape_smooth_loop1.wav", 50)
+				ply.soundPlaying = true
+			elseif (mv:GetVelocity():Length() < 10 or not ply:IsOnGround()) and ply.soundPlaying then
+				ply:StopSound("physics\\concrete\\concrete_scrape_smooth_loop1.wav")
+				ply.soundPlaying = false
+			end
+		end
+	end)
+
+	hook.Add( "DoPlayerDeath", "randomatDefaultPlayerDeath", function( ply)
+		if ply.soundPlaying then
+			ply:StopSound("physics\\concrete\\concrete_scrape_smooth_loop1.wav")
+		end
+	end)
 end
 
 
 function EVENT:End()
 	hook.Remove("PlayerSpawn", "randomatDefaultPlayer")
-	hook.Remove("PlayerFootstep", "randomatDefaultPlayerFootstep")
+	hook.Remove("Move", "randomatDefaultPlayerMove")
+	hook.Remove("DoPlayerDeath", "randomatDefaultPlayerDeath")
 end
 
 Randomat:register(EVENT)
