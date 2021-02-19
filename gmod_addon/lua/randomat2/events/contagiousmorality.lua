@@ -86,7 +86,15 @@ function EVENT:Begin()
 	end
 	SendFullStateUpdate()
 
-	
+	KarmaEnabledConvar = (GetConVar("ttt_karma"))
+	KarmaEnabled = KarmaEnabledConvar:GetBool()
+	print(KarmaEnabled)
+	if KarmaEnabled then
+		print("Disabling Karma for now...")
+		KarmaEnabledConvar:SetBool(false)
+	end
+
+
     hook.Add("DoPlayerDeath","RandomatContagiousMorality", function(ply, attacker, dmg)
 		
         if (attacker.IsPlayer() and attacker ~= ply) then
@@ -115,6 +123,11 @@ end
 
 
 function EVENT:End()
+	if KarmaEnabled then
+		print("Re-enabling karma...")
+		KarmaEnabledConvar:SetBool(true)
+	end
+
 	hook.Remove("DoPlayerDeath", "RandomatContagiousMorality")
 end
 
