@@ -77,21 +77,37 @@ function removecorpse(corpse)
 end
 
 function EVENT:Begin()
+
+	-- Replace all Jesters with Traitors
+	for i, v in ipairs( player.GetAll() ) do
+		if v:GetRole() == ROLE_JESTER then
+			v:SetRole(ROLE_TRAITOR)
+		end
+	end
+	SendFullStateUpdate()
+
+	
     hook.Add("DoPlayerDeath","RandomatContagiousMorality", function(ply, attacker, dmg)
+		
         if (attacker.IsPlayer() and attacker ~= ply) then
             ply:ConCommand("ttt_spectator_mode 0")
+
             timer.Create("respawndelay", 0.1, 0, function()
+
                 local corpse = findcorpse(ply) -- run the normal respawn code now
                 ply:SpawnForRound( true )
                 ply:SetCredits( ( (ply:GetRole() == ROLE_INNOCENT) and 0 ) or GetConVarNumber("ttt_credits_starting") )
                 ply:SetRole(attacker:GetRole())
                 ply:SetHealth(100)
+
                 if corpse then
                     ply:SetPos(corpse:GetPos())
                     removecorpse(corpse)
                 end
+
                 SendFullStateUpdate()
                 if ply:Alive() then timer.Destroy("respawndelay") return end
+
             end)
         end
     end)
