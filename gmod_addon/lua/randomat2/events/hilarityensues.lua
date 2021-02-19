@@ -67,37 +67,72 @@ EVENT.id = "hilarityensues"
 
 
 function EVENT:Begin()
+	-- If ttt2, then we should change how the jester works to avoid
+	-- ending round
 	if TTT2 then
 		curConVar = GetConVar("ttt2_jes_winstate"):GetInt()
 		if GetConVar("ttt2_jes_winstate"):GetInt() ~= 5 then
 			GetConVar("ttt2_jes_winstate"):SetInt(5)
-		else
-			print("Check Fail ====================")
 		end
 	end
 
+	-- If there are no jesters, spawn one using a traitor as long as
+	-- there are more than 1 traitors
+	addJester = true
+	traitors = 0
+
+	for i, v in ipairs( player.GetAll() ) do
+		if v:GetRole() == ROLE_JESTER then
+			addJester = false
+		end
+		
+		if v:GetRole() == ROLE_TRAITOR then
+			traitors = traitors + 1
+		end
+	end
+
+	if addJester and traitors > 1 then
+		for i, v in ipairs( player.GetAll() ) do
+			if v:GetRole() == ROLE_TRAITOR and addJester then
+				v:SetRole(ROLE_JESTER)
+				print("Created Jester")
+				addJester = false
+			end
+		end
+	end
+
+	SendFullStateUpdate()
+
     hook.Add("DoPlayerDeath","RandomatHilarityEnsues", function(ply, attacker, dmg)
+		
+		SendFullStateUpdate()
+
         if (attacker.IsPlayer() and attacker ~= ply) then
+
 			if ply:GetRole() == ROLE_JESTER and attacker:GetRole() == ROLE_TRAITOR then
                 local explosion = ents.Create( "env_explosion" )
                 explosion:SetPos( ply:GetPos() )
 	            explosion:Spawn() -- Spawn the explosion
-	            explosion:SetKeyValue( "iMagnitude", "50" )
+	            explosion:SetKeyValue( "iMagnitude", "200" )
                 explosion:Fire( "Explode", 0, 0 )
                 
 				if GetConVar("randomat_hilarityensues_respawn"):GetBool() then
                     ply:ConCommand("ttt_spectator_mode 0")
                     timer.Create("respawndelay", 0.1, 0, function()
+
                         local corpse = findcorpse(attacker) -- run the normal respawn code now
                         attacker:SpawnForRound( true )
                         attacker:SetCredits( ( (attacker:GetRole() == ROLE_INNOCENT) and 0 ) or GetConVarNumber("ttt_credits_starting") )
                         attacker:SetHealth(100)
+
                         if corpse then
                             attacker:SetPos(corpse:GetPos())
                             removecorpse(corpse)
                         end
+
                         SendFullStateUpdate()
                         if attacker:Alive() then timer.Destroy("respawndelay") return end
+						
 					end)
 				end
             end
