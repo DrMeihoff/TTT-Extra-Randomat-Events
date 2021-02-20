@@ -69,6 +69,7 @@ function removecorpse(corpse)
         player.GetByUniqueID( corpse.uqid ):SetNWBool( "body_found", false )
         corpse:Remove()
         SendFullStateUpdate()
+		
 	elseif corpse.player_ragdoll then
         player.GetByUniqueID( corpse.uqid ):SetNWBool( "body_found", false )
 		corpse:Remove()
@@ -77,6 +78,11 @@ function removecorpse(corpse)
 end
 
 function EVENT:Begin()
+
+	KarmaTable = {}
+	for i, v in ipairs( self:GetAlivePlayers() ) do
+		KarmaTable[v] = v:GetLiveKarma()
+	end
 
 	-- Replace all Jesters with Traitors
 	for i, v in ipairs( player.GetAll() ) do
@@ -88,12 +94,6 @@ function EVENT:Begin()
 
 	KarmaEnabledConvar = (GetConVar("ttt_karma"))
 	KarmaEnabled = KarmaEnabledConvar:GetBool()
-	print(KarmaEnabled)
-	if KarmaEnabled then
-		print("Disabling Karma for now...")
-		KarmaEnabledConvar:SetBool(false)
-	end
-
 
     hook.Add("DoPlayerDeath","RandomatContagiousMorality", function(ply, attacker, dmg)
 		
@@ -123,9 +123,11 @@ end
 
 
 function EVENT:End()
-	if KarmaEnabled then
-		print("Re-enabling karma...")
-		KarmaEnabledConvar:SetBool(true)
+	
+	for i, v in ipairs( self:GetAlivePlayers() ) do
+		v:SetLiveKarma(KarmaTable[v])
+		v:SetBaseKarma(KarmaTable[v])
+		KARMA.ApplyKarma(v)
 	end
 
 	hook.Remove("DoPlayerDeath", "RandomatContagiousMorality")
