@@ -116,7 +116,7 @@ end
 
 
 function EVENT:End()
-    hook.Add("PlayerDeath","RandomatGuilt")
+    hook.Remove("PlayerDeath","RandomatGuilt")
 end
 
 Randomat:register(EVENT)
