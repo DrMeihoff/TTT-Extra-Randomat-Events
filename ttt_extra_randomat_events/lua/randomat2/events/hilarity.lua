@@ -87,7 +87,8 @@ end
 
 function EVENT:Begin()
 
-    if ROLE_SWAPPER then role = ROLE_SWAPPER else roleStr = ROLE_JESTER end
+    ChangedJesterWinState = 0
+    if ROLE_SWAPPER then role = ROLE_SWAPPER else role = ROLE_JESTER end
 
 	-- If ttt2, then we should change how the jester works to avoid
 	-- ending round
@@ -97,6 +98,7 @@ function EVENT:Begin()
 			GetConVar("ttt2_jes_winstate"):SetInt(5)
 		end
 	end
+
     if role == ROLE_SWAPPER then
         -- Replace all Jesters with Swappers
 	    for i, v in ipairs( player.GetAll() ) do
@@ -104,6 +106,11 @@ function EVENT:Begin()
 			    v:SetRole(ROLE_SWAPPER)
 		    end
 	    end
+    else
+        if GetConVar("jesterwinstate"):GetInt() ~= 4 then
+            ChangedJesterWinState = GetConVar("jesterwinstate"):GetInt()
+            GetConVar("jesterwinstate"):SetInt(4)
+        end
     end
 
     hook.Add("TTTKarmaGivePenalty", "HilarityKarma", function(ply, penalty, victim)
@@ -190,6 +197,11 @@ function EVENT:End()
 	if TTT2 then
 		GetConVar("ttt2_jes_winstate"):SetInt(tonumber(curConVar))
 	end
+
+    if ChangedJesterWinState ~= 0 then
+        GetConVar("jesterwinstate"):SetInt(ChangedJesterWinState)
+    end
+
 	hook.Remove("DoPlayerDeath", "RandomatHilarityEnsues")
 end
 
