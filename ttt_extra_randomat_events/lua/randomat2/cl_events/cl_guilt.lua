@@ -5,7 +5,7 @@ net.Receive("Guilty", function()
     hook.Add("Think", "RandomatGuiltThink", function()
 
         if (CurTime() - time) < GetConVar("randomat_guilt_time"):GetInt() then
-            current = EyeAngles()
+            current = LocalPlayer():EyeAngles()
             current.p = 90
             LocalPlayer():SetEyeAngles(current)
             
