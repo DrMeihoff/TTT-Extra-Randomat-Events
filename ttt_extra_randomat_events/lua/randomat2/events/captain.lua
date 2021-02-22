@@ -99,6 +99,7 @@ local function checkTeam(ply)
     if ROLE_VAMPIRE then table.insert(traitors, ROLE_VAMPIRE) end
     if ROLE_ZOMBIE then table.insert(traitors, ROLE_ZOMBIE) end
     if ROLE_INFECTED then table.insert(traitors, ROLE_INFECTED) end
+    if ROLE_SERIALKILLER then table.insert(traitors, ROLE_SERIALKILLER) end
 
 
 
