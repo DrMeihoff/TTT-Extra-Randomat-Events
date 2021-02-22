@@ -131,7 +131,7 @@ function EVENT:Begin()
 	if addJester and traitors > 1 then
 		for i, v in ipairs( player.GetAll() ) do
 			if v:GetRole() == ROLE_TRAITOR and addJester then
-				v:SetRole(ROLE_JESTER)
+				v:SetRole(role)
 				print("Created Jester")
 				addJester = false
 			end
