@@ -7,6 +7,8 @@ EVENT.Title = "Hilarity Ensues"
 EVENT.Description = "When a traitor kills a ".. roleStr ..", the " .. roleStr .." will explode."
 EVENT.id = "hilarity"
 
+ChangedJesterWinState = 0
+
 function EVENT:GetConVars()
 
     local sliders = {}
@@ -201,6 +203,7 @@ function EVENT:End()
     if ChangedJesterWinState ~= 0 then
         GetConVar("jesterwinstate"):SetInt(ChangedJesterWinState)
     end
+
 
 	hook.Remove("DoPlayerDeath", "RandomatHilarityEnsues")
 end
