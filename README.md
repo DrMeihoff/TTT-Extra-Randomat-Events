@@ -8,7 +8,7 @@ This addon will add more randomat events to your TTT Game. It requires [Randomat
 
 ## Events
 
-### **I'm the captain now**
+### **I'm The Captain Now**
 
 This event will kill the detective when they kill an innocent, and respawn the innocent as the detective.
 
@@ -20,7 +20,7 @@ This event will turn each role into a 'team'. When someone kills another person,
 
 This event will turn everyone's player model into the default source player model, the one that looks like stone, and make everyone's footsteps sound like stone.
 
-### **'Realistic' Recoil**
+### **Realistic Recoil**
 
 This will add a back force to weapons, based on their damage, and amount of bullets shot. This can allow you to fly by shooting your weapon.
 
@@ -36,9 +36,20 @@ This event does absolutely nothing.
 
 This event will fire players away from each other if they touch, if you jump at another player, can be used to launch yourself somewhere.
 
-### **I'm the accuracy now**
+### **Don't Miss...**
 
-This event will remove health from you if you miss a shot, and give you health if you hit.
+(Previously I'm the accuracy now) This event will remove health from you
+if you miss a shot, and give you health if you hit.
+
+### **Cremation**
+
+This event will set dead bodies on fire shortly after death, causing
+them to disappear, unless you put them out.
+
+### **Unbelievable Guilt**
+
+This event will force a players head down for a short period of time if
+they kill a member of the same team.
 
 ## Credits
 
