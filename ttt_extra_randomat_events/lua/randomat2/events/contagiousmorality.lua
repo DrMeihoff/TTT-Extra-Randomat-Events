@@ -106,7 +106,7 @@ function EVENT:Begin()
                 ply:SetRole(attacker:GetRole()) -- Give player role of their attacker
                 ply:SetHealth(100) -- Return to full health
 
-                timer.Simple(0.2, function()
+                timer.Simple(0.5, function()
                     ply:SetDefaultCredits()
                 end)
 

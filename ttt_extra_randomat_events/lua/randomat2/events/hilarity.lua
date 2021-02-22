@@ -172,7 +172,7 @@ function EVENT:Begin()
                         attacker:SetHealth(100)
                         attacker:SetRole(ROLE_TRAITOR) -- Will respawn as swapper otherwise, which is weird.
 
-                        timer.Simple(0.2, function() -- Give credits back
+                        timer.Simple(0.5, function() -- Give credits back
 
                             attacker:SetDefaultCredits()
                             ply:SetDefaultCredits()
