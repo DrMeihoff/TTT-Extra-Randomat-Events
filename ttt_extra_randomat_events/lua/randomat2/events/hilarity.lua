@@ -1,8 +1,10 @@
 CreateConVar("randomat_hilarity_respawn", 1, {FCVAR_NOTIFY, FCVAR_ARCHIVE} , "Whether to respawn traitor (def. 1)")
 
+if ROLE_SWAPPER then roleStr = "Swapper" else roleStr = "Jester" end
+
 local EVENT = {}
 EVENT.Title = "Hilarity Ensues"
-EVENT.Description = "When a traitor kills a jester, the jester will expload."
+EVENT.Description = "When a traitor kills a ".. roleStr ..", the " .. roleStr .." will explode."
 EVENT.id = "hilarity"
 
 function EVENT:GetConVars()
