@@ -41,16 +41,18 @@ This event will fire players away from each other if they touch, if you jump at 
 This event will remove health from you if you miss a shot, and give you health if you hit.
 
 ## Credits
+
 - Learned how to create randomats from [TTT Randomat 2.0 MORE EVENTS!](https://steamcommunity.com/sharedfiles/filedetails/?id=2068742309)
 - Thanks to the people supporting and developing the TTT Gamemode.
 
 ## Contributing
-1. Fork it (https://github.com/Owningle/TTT-Extra-Randomat-Events/fork)
+
+1. [Fork it](https://github.com/Owningle/TTT-Extra-Randomat-Events/fork)
 2. Create your branch
 3. Commit Changes
 4. Push to branch
 5. Create a new Pull Request
 
 ## License
-This project is licensed under the MIT License - see the  [LICENSE](https://github.com/Owningle/TTT-Extra-Randomat-Events/blob/master/LICENSE)  file for details.
 
+This project is licensed under the MIT License - see the  [LICENSE](https://github.com/Owningle/TTT-Extra-Randomat-Events/blob/master/LICENSE)  file for details.
