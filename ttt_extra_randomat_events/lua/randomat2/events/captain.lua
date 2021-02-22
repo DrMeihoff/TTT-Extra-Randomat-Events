@@ -1,5 +1,5 @@
 local EVENT = {}
-EVENT.Title = "Look At Me, I'm The Captian Now."
+EVENT.Title = "I'm The Captian Now."
 EVENT.Description = "When a detective kills an innocent, the innocent becomes the detective, and the old detective dies."
 EVENT.id = "captain"
 
