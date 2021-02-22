@@ -86,6 +86,9 @@ end
 
 
 function EVENT:Begin()
+
+    if ROLE_SWAPPER then role = ROLE_SWAPPER else roleStr = ROLE_JESTER end
+
 	-- If ttt2, then we should change how the jester works to avoid
 	-- ending round
 	if TTT2 then
@@ -94,17 +97,13 @@ function EVENT:Begin()
 			GetConVar("ttt2_jes_winstate"):SetInt(5)
 		end
 	end
-
-    if not ROLE_PHOENIX then
-        role = ROLE_SWAPPER
+    if role == ROLE_SWAPPER then
         -- Replace all Jesters with Swappers
 	    for i, v in ipairs( player.GetAll() ) do
 		    if v:GetRole() == ROLE_JESTER then
 			    v:SetRole(ROLE_SWAPPER)
 		    end
 	    end
-    else
-        role = ROLE_JESTER
     end
 
     hook.Add("TTTKarmaGivePenalty", "HilarityKarma", function(ply, penalty, victim)
@@ -113,7 +112,7 @@ function EVENT:Begin()
             return true
         end
         
-        end)
+    end)
 
 	-- If there are no jesters, spawn one using a traitor as long as
 	-- there are more than 1 traitors
@@ -134,7 +133,6 @@ function EVENT:Begin()
 		for i, v in ipairs( player.GetAll() ) do
 			if v:GetRole() == ROLE_TRAITOR and addJester then
 				v:SetRole(role)
-				print("Created Jester")
 				addJester = false
 			end
 		end
@@ -155,19 +153,21 @@ function EVENT:Begin()
 	            explosion:Spawn() -- Spawn the explosion
 	            explosion:SetKeyValue( "iMagnitude", "200" )
                 explosion:Fire( "Explode", 0, 0 )
-                print("awdadw")
-				if GetConVar("randomat_hilarity_respawn"):GetBool() then
-                    print("yes")
+
+				if GetConVar("randomat_hilarity_respawn"):GetBool() then -- Should we respawn the traitor?
                     attacker:ConCommand("ttt_spectator_mode 0")
                     timer.Create("respawndelay", 0.1, 0, function()
-                        print("spawn")
+
                         local corpse = findcorpse(attacker) -- run the normal respawn code now
                         attacker:SpawnForRound( true )
                         attacker:SetHealth(100)
-                        attacker:SetRole(ROLE_TRAITOR)
-                        timer.Simple(0.2, function()
+                        attacker:SetRole(ROLE_TRAITOR) -- Will respawn as swapper otherwise, which is weird.
+
+                        timer.Simple(0.2, function() -- Give credits back
+
                             attacker:SetDefaultCredits()
                             ply:SetDefaultCredits()
+
                         end)
                         
                         if corpse then
