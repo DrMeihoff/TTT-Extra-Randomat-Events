@@ -58,7 +58,7 @@ EVENT.id = "inchbyinch"
 function EVENT:GetConVars()
 
     local sliders = {}
-    for _, v in pairs({}) do
+    for _, v in pairs({"time", "step", "min"}) do
         local name = "randomat_" .. self.id .. "_" .. v
         if ConVarExists(name) then
             local convar = GetConVar(name)
@@ -67,7 +67,7 @@ function EVENT:GetConVars()
                 dsc = convar:GetHelpText(), -- The description of the ConVar
                 min = convar:GetMin(),      -- The minimum value for this slider-based ConVar
                 max = convar:GetMax(),      -- The maximum value for this slider-based ConVar
-                dcm = 0                     -- The number of decimal points to support in this slider-based ConVar
+                dcm = 2                     -- The number of decimal points to support in this slider-based ConVar
             })
         end
     end
@@ -106,11 +106,11 @@ function EVENT:Begin()
     sc = GetConVar("randomat_inchbyinch_step")
     hook.Add("Tick","Randomatinchbyinch", function(ply)
         time = time + 1
-        if time >= GetConVar("randomat_inchbyinch_time") then
+        if time >= GetConVar("randomat_inchbyinch_time"):GetFloat() then
             time = 0
             for i, v in ipairs( self:GetAlivePlayers() ) do
                 v:SetStepSize(v:GetStepSize()*sc)
-                v:SetModelScale(v:GetModelScale()*sc, GetConVar("randomat_inchbyinch_time") - 1)
+                v:SetModelScale(v:GetModelScale()*sc, GetConVar("randomat_inchbyinch_time"):GetFloat() - 1)
                 v:SetViewOffset(v:GetViewOffset()*sc)
                 v:SetViewOffsetDucked(v:GetViewOffsetDucked()*sc)
         

@@ -100,7 +100,7 @@ end
 function EVENT:Begin()
     hook.Add("PlayerTick","Randomatsorethroat", function(ply)
         if ply:IsSpeaking() == true then
-            ply:TakeDamage(1);
+            ply:TakeDamage(0.1);
         end
     end)
 end
