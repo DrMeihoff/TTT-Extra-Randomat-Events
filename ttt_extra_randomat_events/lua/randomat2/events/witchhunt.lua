@@ -107,6 +107,7 @@ function EVENT:Begin()
                 local down = Vector(0, -1, 0)
                 ply.setVelocity(down)
             end
+        end
     end)
 end
 

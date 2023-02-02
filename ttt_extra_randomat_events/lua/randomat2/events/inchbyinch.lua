@@ -105,7 +105,7 @@ function EVENT:Begin()
     time = 0
     sc = GetConVar("randomat_inchbyinch_step")
     hook.Add("Tick","Randomatinchbyinch", function(ply)
-        time += 1
+        time = time + 1
         if time >= GetConVar("randomat_inchbyinch_time") then
             time = 0
             for i, v in ipairs( self:GetAlivePlayers() ) do
