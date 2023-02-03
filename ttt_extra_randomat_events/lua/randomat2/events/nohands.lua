@@ -98,15 +98,18 @@ function EVENT:GetConVars()
 end
 
 function EVENT:Begin()
-    for i, v in ipairs( player.GetAll() ) do
-		v:DrawViewModel(0)
-    end
+    hook.Add("PlayerTick","Randomatnohands", function(ply)
+        for i, v in ipairs( player.GetAll() ) do
+            v:DrawViewModel(false)
+        end
+    end)
 end
 
 
 function EVENT:End()
+    hook.Remove("PlayerTick","Randomatnohands")
     for i, v in ipairs( player.GetAll() ) do
-		v:DrawViewModel(1)
+		v:DrawViewModel(true)
     end
 end
 
