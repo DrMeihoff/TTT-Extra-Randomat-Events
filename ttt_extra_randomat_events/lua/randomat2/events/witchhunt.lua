@@ -98,14 +98,14 @@ function EVENT:GetConVars()
 end
 
 function EVENT:Begin()
-    hook.Add("HandlePlayerSwimming","Randomatwitchhunt", function(ply, velocity)
+    hook.Add("PlayerTick","Randomatwitchhunt", function(ply)
         if ply:WaterLevel() > 1 then
-            if ply.GetRole() == ROLE_INNOCENT then
+            if ply:GetRole() == ROLE_INNOCENT then
                 local up = Vector(0, 1, 0)
-                ply.setVelocity(up)
-            elseif ply.GetRole() == ROLE_TRAITOR then
+                ply:SetVelocity(up)
+            elseif ply:GetRole() == ROLE_TRAITOR then
                 local down = Vector(0, -1, 0)
-                ply.setVelocity(down)
+                ply:SetVelocity(down)
             end
         end
     end)
@@ -113,7 +113,7 @@ end
 
 
 function EVENT:End()
-    hook.Remove("HandlePlayerSwimming","Randomatwitchhunt")
+    hook.Remove("PlayerTick","Randomatwitchhunt")
 end
 
 Randomat:register(EVENT)

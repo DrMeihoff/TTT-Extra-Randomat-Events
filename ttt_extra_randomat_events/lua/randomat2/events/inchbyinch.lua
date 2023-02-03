@@ -103,14 +103,14 @@ end
 
 function EVENT:Begin()
     time = 0
-    sc = GetConVar("randomat_inchbyinch_step")
+    sc = GetConVar("randomat_inchbyinch_step"):GetFloat()
     hook.Add("Tick","Randomatinchbyinch", function(ply)
         time = time + 1
         if time >= GetConVar("randomat_inchbyinch_time"):GetFloat() then
             time = 0
             for i, v in ipairs( self:GetAlivePlayers() ) do
                 v:SetStepSize(v:GetStepSize()*sc)
-                v:SetModelScale(v:GetModelScale()*sc, GetConVar("randomat_inchbyinch_time"):GetFloat() - 1)
+                v:SetModelScale(v:GetModelScale()*sc, 1)
                 v:SetViewOffset(v:GetViewOffset()*sc)
                 v:SetViewOffsetDucked(v:GetViewOffsetDucked()*sc)
         
