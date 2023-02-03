@@ -114,3 +114,5 @@ function EVENT:End()
 end
 
 Randomat:register(EVENT)
+
+util.AddNetworkString("EverInYourFavour")
