@@ -98,7 +98,12 @@ function EVENT:GetConVars()
 end
 
 function EVENT:Begin()
-    hook.Add("DoPlayerDeath","RandomatEverInYourFavour", function()
+    hook.Add("DoPlayerDeath","RandomatEverInYourFavour", function(ply)
+        for i, v in ipairs( player.GetAll() ) do
+            net.Start("EverInYourFavour")
+            net.Send(v)
+        end
+          
         surface.PlaySound("ambient/alarms/klaxon1.wav")
     end)
 end
